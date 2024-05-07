@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface BoardMapper {
     @Insert(
@@ -24,4 +26,12 @@ public interface BoardMapper {
             WHERE id = #{id}
             """)
     Board selectById(Integer id);
+
+    @Select("""
+            SELECT *
+            FROM board
+            ORDER BY id DESC
+
+            """)
+    List<Board> selectAll();
 }

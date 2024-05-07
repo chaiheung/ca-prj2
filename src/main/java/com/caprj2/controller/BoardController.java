@@ -40,4 +40,11 @@ public class BoardController {
         // jsp 로 포워드
         return "board/view";
     }
+
+    // 게시글 목록
+    @GetMapping("/")
+    public String home(Model model) {
+        model.addAttribute("boardList", service.list());
+        return "board/home";
+    }
 }
