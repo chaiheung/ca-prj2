@@ -3,6 +3,7 @@ CREATE DATABASE prj2;
 USE prj2;
 
 # 게시판 테이블 생성
+DROP TABLE board;
 CREATE TABLE board
 (
     id       INT PRIMARY KEY AUTO_INCREMENT,
