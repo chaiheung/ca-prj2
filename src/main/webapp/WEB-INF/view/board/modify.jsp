@@ -9,32 +9,25 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<h3>${board.id}번 게시물</h3>
-<div>
-    제목
-    <input type="text" value="${board.title}" readonly>
-</div>
-<div>
-    본문
-    <textarea cols="30" rows="10" readonly>
-        ${board.content}
-    </textarea>
-</div>
-<div>
-    작성자
-    <input type="text" value="${board.writer}" readonly>
-</div>
-<div>
-    작성일시
-    <input type="datetime-local" value="${board.inserted}" readonly>
-</div>
-<div>
-    <form action="/delete" method="post" onsubmit="return confirm('정말 삭제할까요?')">
-        <input type="hidden" name="id" value="${board.id}">
-        <button>삭제</button>
-    </form>
-</div>
-<a href="modify?id=${board.id}">수정</a>
+<h3>${board.id}번 게시물 수정</h3>
+<form action="/modify" method="post">
+    <input type="hidden" name="id" value="${board.id}">
+    <div>
+        제목
+        <input type="text" name="title" value="${board.title}" required>
+    </div>
+    <div>
+        본문
+        <textarea cols="30" rows="10" name="content" required>${board.content}</textarea>
+    </div>
+    <div>
+        작성자
+        <input type="text" value="${board.writer}" name="writer" required>
+    </div>
+    <div>
+        <button>수정</button>
+    </div>
+</form>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
         integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
