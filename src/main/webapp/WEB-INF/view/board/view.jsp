@@ -28,6 +28,12 @@
     작성일시
     <input type="datetime-local" value="${board.inserted}" readonly>
 </div>
+<div>
+    <form action="/delete" method="post" onsubmit="return confirm('정말 삭제할까요?')">
+        <input type="hidden" name="id" value="${board.id}">
+        <button>삭제</button>
+    </form>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
         integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

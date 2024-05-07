@@ -47,4 +47,12 @@ public class BoardController {
         model.addAttribute("boardList", service.list());
         return "board/home";
     }
+
+    // 게시물 삭제
+    @PostMapping("delete")
+    public String delete(Integer id, RedirectAttributes rttr) {
+        service.remove(id);
+
+        return "redirect:/";
+    }
 }
