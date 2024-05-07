@@ -9,32 +9,43 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<h3>게시물 목록</h3>
-<table>
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>제목</th>
-        <th>작성자</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${boardList}" var="board">
-        <c:url value="/board" var="viewLink">
-            <c:param name="id" value="${board.id}"></c:param>
-        </c:url>
-        <tr>
-            <td>${board.id}</td>
-            <td>
-                <a href="${viewLink}">
-                        ${board.title}
-                </a>
-            </td>
-            <td>${board.writer}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+<c:import url="/WEB-INF/fragment/navbar.jsp"></c:import>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h3 class="mb-4">게시물 목록</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="width:50px;">#</th>
+                    <th>제목</th>
+                    <th style="width:170px;">작성자</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${boardList}" var="board">
+                    <c:url value="/board" var="viewLink">
+                        <c:param name="id" value="${board.id}"></c:param>
+                    </c:url>
+                    <tr>
+                        <td>${board.id}</td>
+                        <td>
+                            <a href="${viewLink}">
+                                    ${board.title}
+                            </a>
+                        </td>
+                        <td>${board.writer}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
         integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

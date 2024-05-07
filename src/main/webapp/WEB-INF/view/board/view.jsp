@@ -9,32 +9,51 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<h3>${board.id}번 게시물</h3>
-<div>
-    제목
-    <input type="text" value="${board.title}" readonly>
+<c:import url="/WEB-INF/fragment/navbar.jsp"/>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h3 class="mb-4">${board.id} 번 게시물</h3>
+            <div class="mb-3">
+                <label for="inputTitle" class="form-label">
+                    제목
+                </label>
+                <input id="inputTitle" class="form-control" type="text" value="${board.title}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="textareaContent" class="form-label">
+                    본문
+                </label>
+                <textarea id="textareaContent" class="form-control" cols="30" rows="10"
+                          readonly>${board.content}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="inputWriter" class="form-label">
+                    작성자
+                </label>
+                <input id="inputWriter" class="form-control" type="text" readonly value="${board.writer}">
+            </div>
+            <div class="mb-3">
+                <label for="inputInserted" class="form-label">
+                    작성일시
+                </label>
+                <input id="inputInserted" class="form-control" type="datetime-local" readonly value="${board.inserted}">
+            </div>
+
+            <div class="mb-3">
+                <button form="formDelete" class="btn btn-danger">삭제</button>
+                <a href="/modify?id=${board.id}" class="btn btn-secondary">수정</a>
+            </div>
+
+        </div>
+    </div>
 </div>
-<div>
-    본문
-    <textarea cols="30" rows="10" readonly>
-        ${board.content}
-    </textarea>
-</div>
-<div>
-    작성자
-    <input type="text" value="${board.writer}" readonly>
-</div>
-<div>
-    작성일시
-    <input type="datetime-local" value="${board.inserted}" readonly>
-</div>
-<div>
-    <form action="/delete" method="post" onsubmit="return confirm('정말 삭제할까요?')">
+
+<div style="display: none">
+    <form id="formDelete" action="/delete" method="post" onsubmit="return confirm('삭제 하시겠습니까?')">
         <input type="hidden" name="id" value="${board.id}">
-        <button>삭제</button>
     </form>
 </div>
-<a href="modify?id=${board.id}">수정</a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
         integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
