@@ -16,16 +16,32 @@
     <div class="row justify-content-center">
         <div class="col-6">
             <h3 class="mb-4">회원 가입</h3>
-            <form action="/member/signup" method="post">
+            <form action="/member/signup" method="post" onsubmit="return checkValues()">
                 <%-- div*3>label.form-label+input.form-control--%>
                 <div class="mb-3">
-                    <label for="inputEmail" class="form-label">이메일</label>
-                    <input name="email" id="inputEmail" required type="email" class="form-control">
+                    <label for="inputEmail" class="form-label">계정</label>
+                    <div class="input-group mb-3">
+                        <input name="email" id="inputEmail" required type="email" class="form-control">
+                        <button onclick="emailCheck();" type="button" class="btn btn-outline-secondary" type="button"
+                                id="buttonEmailCheck">중복
+                            확인
+                        </button>
+                    </div>
+
                 </div>
                 <div class="mb-3">
-                    <label for="inputPassword" class="form-label">패스워드</label>
-                    <input name="password" id="inputPassword" required type="password" class="form-control">
+                    <label for="inputPassword" class="form-label">비밀번호</label>
+                    <input oninput="passwordCheck()" name="password" id="inputPassword" required type="password"
+                           class="form-control">
                 </div>
+                <div class="mb-3">
+                    <label for="inputPasswordCheck" class="form-label">비밀번호 확인</label>
+                    <input oninput="passwordCheck()" id="inputPasswordCheck" required type="password"
+                           class="form-control">
+                </div>
+
+                <div class="form-text" id="passwordMessage"></div>
+
                 <div class="mb-3">
                     <label for="inputNickname" class="form-label">닉네임</label>
                     <input name="nickname" id="inputNickname" required type="text" class="form-control">
@@ -38,8 +54,60 @@
     </div>
 </div>
 
+<script>
+
+    // jquery 사용 시 코드
+    // $(function () {
+    //     $("#buttonEmailCheck").click(function () {
+    //         const emailValue = $("#inputEmail").value();
+    //         // ajax 요청
+    //         $.ajax("/member/email?email=" + emailValue);
+    //         // 응답 처리
+    //
+    //     });
+    // })
+
+    async function emailCheck() {
+        const emailValue = document.querySelector("#inputEmail").value;
+        const url = "/member/email?email=" + emailValue;
+
+        // ajax 요청
+        const response = await fetch(encodeURI(url));
+        // 응답처리
+        // console.log(response.text());
+        alert(await response.text());
+    }
+
+
+    function passwordCheck() {
+        const password = document.querySelector("#inputPassword").value;
+        const passwordCheck = document.querySelector("#inputPasswordCheck").value;
+
+        if (password != passwordCheck) {
+            // 메시지 보여주기
+            document.querySelector("#passwordMessage").textContent = "패스워드가 일치하지 않습니다."
+        } else {
+            document.querySelector("#passwordMessage").textContent = ""
+        }
+    }
+
+    function checkValues() {
+        const password = document.getElementById("inputPassword").value;
+        const passwordCheck = document.getElementById("inputPasswordCheck").value;
+
+        if (password != "" && password == passwordCheck) {
+            return true
+        } else {
+            alert("비밀번호가 일치하지 않습니다.");
+            return false;
+        }
+    }
+</script>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
         integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
+
