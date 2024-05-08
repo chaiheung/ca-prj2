@@ -71,4 +71,10 @@ public class MemberController {
         String message = service.emailCheck(email);
         return message;
     }
+
+    // 로그인
+    @GetMapping("login")
+    public String loginForm() {
+        return "member/login";
+    }
 }

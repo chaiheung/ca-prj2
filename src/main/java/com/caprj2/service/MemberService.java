@@ -3,6 +3,7 @@ package com.caprj2.service;
 import com.caprj2.domain.Member;
 import com.caprj2.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +14,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberMapper mapper;
+    private final BCryptPasswordEncoder encoder;
 
     public void signup(Member member) {
+//        String password = member.getPassword();
+//        String encodedPassword = encoder.encode(password);
+//        member.setPassword(encodedPassword);
+        member.setPassword(encoder.encode(member.getPassword()));
         mapper.insert(member);
     }
 
@@ -31,6 +37,14 @@ public class MemberService {
     }
 
     public void modify(Member member) {
+        if (member.getPassword() != null && member.getPassword().length() > 0) {
+            // 암호를 입력했을 때만 변경
+            member.setPassword(encoder.encode(member.getPassword()));
+        } else {
+            // 기존 암호 유지
+            Member old = mapper.selectById(member.getId());
+            old.setPassword(old.getPassword());
+        }
         mapper.update(member);
     }
 
