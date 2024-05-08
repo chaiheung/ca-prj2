@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
     private final MemberService service;
 
-    // 회원가입
+    // 회원 가입
     @GetMapping("signup")
     public String signupForm() {
         return "member/signup";
@@ -32,5 +32,18 @@ public class MemberController {
     public String list(Model model) {
         model.addAttribute(service.list());
         return "member/list";
+    }
+
+    // 회원 정보
+    @GetMapping("")
+    public String info(Integer id, Model model) {
+        model.addAttribute("member", service.get(id));
+        return "member/info";
+    }
+
+    @PostMapping("remove")
+    public String remove(Integer id) {
+        service.remove(id);
+        return "redirect:/member/signup";
     }
 }
